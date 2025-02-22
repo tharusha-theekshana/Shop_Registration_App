@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_registration/screens/home_screen.dart';
+import 'package:shop_registration/screens/register_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true
       ),
       themeMode: ThemeMode.system,
-      home: HomeScreen(),
+      home: RegisterScreen(),
     );
   }
 }
