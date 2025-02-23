@@ -50,7 +50,7 @@ class OwnerDetailsScreen extends StatelessWidget {
         children: [
           TopWidgets(),
           SubTitleWidget(text: "Owner Details"),
-          StepperView(step: 1, allSteps: 3),
+          StepperView(step: 1, allSteps: 4),
           _inputArea(context)
         ],
       ),

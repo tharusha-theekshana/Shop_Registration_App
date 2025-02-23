@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_registration/core/utils/app_colors.dart';
+import 'package:shop_registration/core/widgets/custom_button.dart';
 import 'package:shop_registration/providers/image_provider.dart';
+import 'package:shop_registration/screens/register_flow/owner_details_screen.dart';
 
+import '../../core/widgets/stepper_view.dart';
+import '../../core/widgets/sub_title_widget.dart';
+import '../../core/widgets/top_widgets.dart';
 import '../../providers/shop_register_provider.dart';
 
 class SummeryScreen extends StatefulWidget {
@@ -34,10 +40,36 @@ class _SummeryScreenState extends State<SummeryScreen> {
           vertical: _deviceHeight * 0.01, horizontal: _deviceWidth * 0.03),
       child: Column(
         children: [
-          _ownerDetails(shopProvider),
+          TopWidgets(),
+          SubTitleWidget(text: "Registration Summery"),
+          StepperView(step: 4, allSteps: 4),
+          SizedBox(
+            height: _deviceHeight * 0.04,
+          ),
           _shopDetails(shopProvider),
+          SizedBox(
+            height: _deviceHeight * 0.02,
+          ),
+          _ownerDetails(shopProvider),
+          SizedBox(
+            height: _deviceHeight * 0.02,
+          ),
           _bankDetails(shopProvider),
-
+          SizedBox(
+            height: _deviceHeight * 0.08,
+          ),
+          CustomButton(
+            buttonText: "Register Shop",
+            height: _deviceHeight * 0.05,
+            width: _deviceWidth,
+            color: AppColors.greenColor,
+            onPressed: () {
+              _showConfirmationDialog(context);
+            },
+          ),
+          SizedBox(
+            height: _deviceHeight * 0.04,
+          )
         ],
       ),
     );
@@ -58,15 +90,13 @@ class _SummeryScreenState extends State<SummeryScreen> {
   Widget _shopDetails(ShopRegisterProvider shopProvider) {
     return Column(
       children: [
+        _brView(),
         _summeryTitle("Shop Details"),
         rowText(key: "Shop Name", value: shopProvider.shopName),
         rowText(key: "Address", value: shopProvider.address),
         rowText(key: "Shop Category", value: shopProvider.shopCategory),
-        rowText(
-            key: "Open Time", value: shopProvider.openTime),
-        rowText(
-            key: "Close Time", value: shopProvider.closeTime),
-        _brView(),
+        rowText(key: "Open Time", value: shopProvider.openTime),
+        rowText(key: "Close Time", value: shopProvider.closeTime),
       ],
     );
   }
@@ -88,14 +118,15 @@ class _SummeryScreenState extends State<SummeryScreen> {
     final imageProvider = Provider.of<ImagePickerProvider>(context);
 
     return Container(
-      height: _deviceHeight * 0.3,
-      width: _deviceWidth,
+      height: _deviceHeight * 0.35,
+      width: _deviceWidth * 0.6,
       decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15.0),
         image: imageProvider.selectedImageFile != null
             ? DecorationImage(
-          image: FileImage(imageProvider.selectedImageFile),
-          fit: BoxFit.cover,
-        )
+                image: FileImage(imageProvider.selectedImageFile),
+                fit: BoxFit.cover,
+              )
             : null, // In case the image is not selected
       ),
       child: imageProvider.selectedImageFile == null
@@ -103,7 +134,6 @@ class _SummeryScreenState extends State<SummeryScreen> {
           : null, // Optional: display text when no image is selected
     );
   }
-
 
   Widget rowText({required String key, required String value}) {
     return Padding(
@@ -142,6 +172,51 @@ class _SummeryScreenState extends State<SummeryScreen> {
         style: TextStyle(
             fontWeight: FontWeight.bold, fontSize: _deviceHeight * 0.028),
       ),
+    );
+  }
+
+  void _showConfirmationDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Confirm"),
+          content: Text("Are you sure you want to register the shop?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => OwnerDetailsScreen()),
+                  (route) => false, // This removes all previous routes
+                ); // Close dialog
+              },
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: _deviceHeight * 0.005),
+                width: _deviceWidth * 0.15,
+                decoration: BoxDecoration(
+                    color: AppColors.redColor,
+                    borderRadius: BorderRadius.circular(15.0)),
+                child: const Text(
+                  "No",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: AppColors.whiteColor),
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Close dialog
+                // Proceed with registration logic
+              },
+              child: const Text(
+                "Yes",
+                style: TextStyle(color: AppColors.greenColor),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

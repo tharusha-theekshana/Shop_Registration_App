@@ -53,7 +53,7 @@ class ShopDetailsScreen extends StatelessWidget {
         children: [
           TopWidgets(),
           SubTitleWidget(text: "Shop Details"),
-          StepperView(step: 2, allSteps: 3),
+          StepperView(step: 2, allSteps: 4),
           _inputArea(context)
         ],
       ),

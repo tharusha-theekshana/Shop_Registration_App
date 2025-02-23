@@ -50,7 +50,7 @@ class BankDetailsScreen extends StatelessWidget {
         children: [
           TopWidgets(),
           SubTitleWidget(text: "Bank Details"),
-          StepperView(step: 3, allSteps: 3),
+          StepperView(step: 3, allSteps: 4),
           _inputArea(context)
         ],
       ),
