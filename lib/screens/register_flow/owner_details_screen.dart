@@ -139,7 +139,7 @@ class OwnerDetailsScreen extends StatelessWidget {
               },
               deviceHeight: _deviceHeight),
           SizedBox(
-            height: _deviceHeight * 0.03,
+            height: _deviceHeight * 0.08,
           ),
           CustomButton(
             buttonText: "Next",

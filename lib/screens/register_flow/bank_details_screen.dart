@@ -4,11 +4,12 @@ import 'package:shop_registration/screens/register_flow/summery_screen.dart';
 import 'package:shop_registration/shared/bank_names.dart';
 
 import '../../core/utils/app_colors.dart';
-import '../../core/utils/app_styles.dart';
 import '../../core/widgets/custom_button.dart';
 import '../../core/widgets/drop_down_field.dart';
 import '../../core/widgets/form_field.dart';
+import '../../core/widgets/stepper_view.dart';
 import '../../core/widgets/sub_title_widget.dart';
+import '../../core/widgets/top_widgets.dart';
 import '../../providers/shop_register_provider.dart';
 
 class BankDetailsScreen extends StatelessWidget {
@@ -47,33 +48,10 @@ class BankDetailsScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _registerTitleText(),
-          SizedBox(
-            height: _deviceHeight * 0.05,
-          ),
+          TopWidgets(),
+          SubTitleWidget(text: "Bank Details"),
+          StepperView(step: 3, allSteps: 3),
           _inputArea(context)
-        ],
-      ),
-    );
-  }
-
-
-  Widget _registerTitleText() {
-    return SizedBox(
-      width: _deviceWidth,
-      child: Column(
-        children: [
-          Text(
-            "Register Your Own \nShop",
-            textAlign: TextAlign.center,
-            style: AppStyles.titleTextStyle(_deviceHeight),
-          ),
-          SizedBox(
-            height: _deviceHeight * 0.015,
-          ),
-          const Text(
-              "Set up your own shop effortlessly! Register your store and start selling in just a few taps.",
-              textAlign: TextAlign.center),
         ],
       ),
     );
@@ -87,7 +65,6 @@ class BankDetailsScreen extends StatelessWidget {
       key: _bankDetailsFormKey,
       child: Column(
         children: [
-          SubTitleWidget(text: "Bank Details"),
           SizedBox(
             height: _deviceHeight * 0.025,
           ),
@@ -100,10 +77,14 @@ class BankDetailsScreen extends StatelessWidget {
               provider.setBankName(value);
             },
           ),
+          SizedBox(
+            height: _deviceHeight * 0.015,
+          ),
           AppFormField(
               labelText: "Account Number",
-              hintText: "",
+              hintText: "ex : xxxx xxxx xxxx xxxx",
               controller: _accountNumberController,
+              textInputType: TextInputType.number,
               isRequired: true,
               validator: (value) {
                 if (value!.isEmpty) {
@@ -115,12 +96,13 @@ class BankDetailsScreen extends StatelessWidget {
               },
               deviceHeight: _deviceHeight),
           SizedBox(
-            height: _deviceHeight * 0.012,
+            height: _deviceHeight * 0.015,
           ),
           AppFormField(
               labelText: "Branch",
-              hintText: "",
+              hintText: "ex : Colombo",
               controller: _branchController,
+              textInputType: TextInputType.text,
               isRequired: true,
               validator: (value) {
                 if (value!.isEmpty) {
@@ -130,11 +112,11 @@ class BankDetailsScreen extends StatelessWidget {
               },
               deviceHeight: _deviceHeight),
           SizedBox(
-            height: _deviceHeight * 0.012,
+            height: _deviceHeight * 0.015,
           ),
           AppFormField(
               labelText: "Account Holder Name",
-              hintText: "",
+              hintText: "ex : Jhon Smith",
               controller: _accountNumberController,
               isRequired: true,
               maxLength: 10,
@@ -146,7 +128,7 @@ class BankDetailsScreen extends StatelessWidget {
               },
               deviceHeight: _deviceHeight),
           SizedBox(
-            height: _deviceHeight * 0.012,
+            height: _deviceHeight * 0.08,
           ),
           CustomButton(
             buttonText: "Next",
