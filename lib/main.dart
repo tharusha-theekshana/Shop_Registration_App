@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_registration/providers/image_provider.dart';
 import 'package:shop_registration/providers/shop_register_provider.dart';
-import 'package:shop_registration/screens/register_screen.dart';
+import 'package:shop_registration/screens/register_flow/owner_details_screen.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-      create: (BuildContext context) => ShopRegisterProvider(),
-      child: MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ShopRegisterProvider()),
+        ChangeNotifierProvider(create: (context) => ImagePickerProvider()), // Renamed
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -20,7 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.light(useMaterial3: true),
       darkTheme: ThemeData.dark(useMaterial3: true),
       themeMode: ThemeMode.system,
-      home: RegisterScreen(),
+      home: OwnerDetailsScreen(),
     );
   }
 }

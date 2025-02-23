@@ -39,6 +39,15 @@ dependencies:
   # State management
   provider: ^6.1.2
 
+  # Internationalization and localization facilities
+  intl: ^0.20.2
+
+  # Picking images
+  image_picker: ^1.1.2
+
+  # Finding commonly used locations on the filesystem
+  path_provider: ^2.1.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
