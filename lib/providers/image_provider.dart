@@ -9,6 +9,7 @@ class ImagePickerProvider extends ChangeNotifier{
   late File selectedImageFile;
   bool? validate = true;
   late String imageType;
+  late String uploadedFileName = "";
 
   final ImagePicker picker = ImagePicker();
 
@@ -44,13 +45,15 @@ class ImagePickerProvider extends ChangeNotifier{
     imageType = imageFile!.path.split('.').last.toLowerCase();
     final localImage = await image.copy('${appDir.path}/"$shopName - BR".$imageType');
 
+    uploadedFileName = "$shopName - BR.$imageType";
+    notifyListeners();
     print('Image saved locally: ${localImage}');
   }
 
   bool checkImageSize(File imageFile) {
     int bytes = imageFile.lengthSync();
     double kb = bytes / 1024;
-    if(kb > 102400){
+    if(kb > 5120){
       return false;
     }else{
       print('Image size: $kb KB');

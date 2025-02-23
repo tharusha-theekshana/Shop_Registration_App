@@ -55,6 +55,17 @@ class _DropDownFieldState extends State<DropDownField> {
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),
+              borderSide: const BorderSide(
+                width: 1.0,
+                color: AppColors.greyColor,
+              ),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(25.0),
+              borderSide: const BorderSide(
+                width: 1.0,
+                color: AppColors.greyColor,
+              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),
@@ -63,8 +74,9 @@ class _DropDownFieldState extends State<DropDownField> {
                 color: AppColors.greyColor,
               ),
             ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           ),
+          autofocus: false,
           items: widget.items.map((String item) {
             return DropdownMenuItem<String>(
               value: item,

@@ -11,9 +11,17 @@ class AppStyles {
 
   static TextStyle subTextStyle(double deviceHeight) {
     return TextStyle(
-      fontSize: deviceHeight * 0.025,
-      fontWeight: FontWeight.w500,
-      color: AppColors.greyColor
-    );
+        fontSize: deviceHeight * 0.025,
+        fontWeight: FontWeight.w500,
+        color: AppColors.greyColor);
+  }
+
+  static TextStyle inputLabelTextStyle(
+      BuildContext context, double deviceHeight) {
+    return TextStyle(
+        fontFamily: "Quicksand",
+        fontSize: deviceHeight * 0.017,
+        fontWeight: FontWeight.bold,
+        color: Theme.of(context).dividerColor);
   }
 }

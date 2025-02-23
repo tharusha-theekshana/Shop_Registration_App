@@ -5,7 +5,6 @@ import 'package:shop_registration/core/widgets/top_widgets.dart';
 import 'package:shop_registration/screens/register_flow/shop_details_screen.dart';
 
 import '../../core/utils/app_colors.dart';
-import '../../core/utils/app_styles.dart';
 import '../../core/widgets/custom_button.dart';
 import '../../core/widgets/form_field.dart';
 import '../../core/widgets/sub_title_widget.dart';
@@ -35,19 +34,19 @@ class OwnerDetailsScreen extends StatelessWidget {
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(child: _bodyArea(context)),
+      body: SafeArea(child: SingleChildScrollView(child: _bodyArea(context))),
     );
   }
 
   Widget _bodyArea(BuildContext context) {
     return Container(
-      height: _deviceHeight,
+
       width: _deviceWidth,
       padding: EdgeInsets.symmetric(
           vertical: _deviceHeight * 0.01, horizontal: _deviceWidth * 0.03),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           TopWidgets(),
           SubTitleWidget(text: "Owner Details"),
@@ -76,9 +75,9 @@ class OwnerDetailsScreen extends StatelessWidget {
               textInputType: TextInputType.name,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return "Name is required";
+                  return "Name is required.";
                 } else if (!nameReg.hasMatch(value)) {
-                  return "Invalid name";
+                  return "Invalid name.";
                 }
                 return null;
               },
@@ -94,9 +93,9 @@ class OwnerDetailsScreen extends StatelessWidget {
               isRequired: true,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return "Email is required";
+                  return "Email is required.";
                 } else if (!emailRegex.hasMatch(value)) {
-                  return "Invalid email";
+                  return "Invalid email.";
                 }
                 return null;
               },
@@ -113,9 +112,9 @@ class OwnerDetailsScreen extends StatelessWidget {
               maxLength: 10,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return "Mobile number is required";
+                  return "Mobile number is required.";
                 } else if (!mobileRegExp.hasMatch(value)) {
-                  return "Invalid mobile number";
+                  return "Invalid mobile number.";
                 }
                 return null;
               },
@@ -132,9 +131,9 @@ class OwnerDetailsScreen extends StatelessWidget {
               autoFocus: false,
               validator: (value) {
                 if (value!.isEmpty) {
-                  return "NIC is required";
+                  return "NIC is required.";
                 } else if (!nicReg.hasMatch(value)) {
-                  return "Invalid NIC number";
+                  return "Invalid NIC number.";
                 }
                 return null;
               },
@@ -164,6 +163,11 @@ class OwnerDetailsScreen extends StatelessWidget {
                 ));
               } else {
                 print("Form is not validate");
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return ShopDetailsScreen();
+                  },
+                ));
               }
             },
           )

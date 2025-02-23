@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_registration/core/utils/app_colors.dart';
+import 'package:shop_registration/core/utils/app_styles.dart';
 
 class AppFormField extends StatelessWidget {
   final String labelText;
@@ -42,11 +43,7 @@ class AppFormField extends StatelessWidget {
         RichText(
           text: TextSpan(
               text: labelText,
-              style: TextStyle(
-                fontSize: deviceHeight * 0.018,
-                fontWeight: FontWeight.w500,
-                color: Theme.of(context).dividerColor
-              ),
+              style: AppStyles.inputLabelTextStyle(context, deviceHeight),
               children: [
                 TextSpan(
                   text: isRequired ? " *" : "",
