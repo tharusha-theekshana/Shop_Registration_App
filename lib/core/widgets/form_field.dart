@@ -43,8 +43,9 @@ class AppFormField extends StatelessWidget {
           text: TextSpan(
               text: labelText,
               style: TextStyle(
-                fontSize: deviceHeight * 0.02,
+                fontSize: deviceHeight * 0.018,
                 fontWeight: FontWeight.w500,
+                color: Theme.of(context).dividerColor
               ),
               children: [
                 TextSpan(
@@ -58,7 +59,7 @@ class AppFormField extends StatelessWidget {
               ]),
         ),
         const SizedBox(
-          height: 4,
+          height: 5,
         ),
         TextFormField(
           controller: controller,
@@ -116,10 +117,10 @@ class AppFormField extends StatelessWidget {
                     const BorderSide(width: 1.0, color: AppColors.redColor),
               ),
               errorStyle:
-                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 13.0),
+                  TextStyle(fontWeight: FontWeight.w500, fontSize: deviceHeight * 0.015),
               hintText: hintText,
               hintStyle: TextStyle(
-                  fontSize: deviceHeight * 0.02,
+                  fontSize: deviceHeight * 0.018,
                   color: AppColors.greyColor,
                   fontWeight: FontWeight.w400)),
         ),

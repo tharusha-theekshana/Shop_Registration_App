@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shop_registration/core/utils/app_colors.dart';
 import 'package:shop_registration/core/utils/app_styles.dart';
 
 class SubTitleWidget extends StatelessWidget {
@@ -13,15 +12,20 @@ class SubTitleWidget extends StatelessWidget {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(text,style: AppStyles.subTextStyle(_deviceHeight),),
-        const Divider(
-          color: AppColors.dividerColor,
-          thickness: 1,
-        )
-      ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double screenWidth = constraints.maxWidth;
+        String dashes = '-' * (screenWidth ~/ 35); // Adjust the divisor for length
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text("$dashes $text $dashes",
+              style: AppStyles.subTextStyle(_deviceHeight),
+            ),
+          ],
+        );
+      },
     );
   }
 }
