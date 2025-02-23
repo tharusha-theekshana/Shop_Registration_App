@@ -181,7 +181,7 @@ class ShopDetailsScreen extends StatelessWidget {
                   onPressed: () {
                     if (_shopDetailsFormKey.currentState!.validate() && imageProvider.uploadedFileName.isNotEmpty) {
                       provider.saveShopDetails(
-                          shopName: _shopNameController.text,
+                          name: _shopNameController.text,
                           address: _addressController.text,
                           openTime: _openTimeController.text,
                           closeTime: _closeTimeController.text);

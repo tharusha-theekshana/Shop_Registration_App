@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_registration/screens/register_flow/summery_screen.dart';
 import 'package:shop_registration/shared/bank_names.dart';
 
 import '../../core/utils/app_colors.dart';
@@ -116,9 +117,8 @@ class BankDetailsScreen extends StatelessWidget {
           AppFormField(
               labelText: "Account Holder Name",
               hintText: "ex : Jhon Smith",
-              controller: _accountNumberController,
+              controller: _accountHolderNameController,
               isRequired: true,
-              maxLength: 10,
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Account holder name is required";
@@ -129,23 +129,49 @@ class BankDetailsScreen extends StatelessWidget {
           SizedBox(
             height: _deviceHeight * 0.08,
           ),
-          CustomButton(
-            buttonText: "Next",
-            height: _deviceHeight * 0.06,
-            width: _deviceWidth,
-            color: AppColors.greenColor,
-            borderRadius: 25,
-            fontSize: _deviceHeight * 0.02,
-            onPressed: () {
-              if (_bankDetailsFormKey.currentState!.validate()) {
-                provider.saveBankDetails(
-                    accountNumber: _accountNumberController.text,
-                    branch: _branchController.text,
-                    accountHolderName: _accountHolderNameController.text);
-              } else {
-                print("Form is not validate");
-              }
-            },
+          Row(
+            children: [
+              Expanded(
+                flex: 1,
+                child: CustomButton(
+                  buttonText: "Back",
+                  height: _deviceHeight * 0.06,
+                  color: AppColors.redColor,
+                  borderRadius: 25,
+                  fontSize: _deviceHeight * 0.02,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: CustomButton(
+                  buttonText: "Next",
+                  height: _deviceHeight * 0.06,
+                  width: _deviceWidth,
+                  color: AppColors.greenColor,
+                  borderRadius: 25,
+                  fontSize: _deviceHeight * 0.02,
+                  onPressed: () {
+                    if (_bankDetailsFormKey.currentState!.validate()) {
+                      provider.saveBankDetails(
+                          accNumber: _accountNumberController.text,
+                          branch: _branchController.text,
+                          accountName: _accountHolderNameController.text);
+
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return SummeryScreen();
+                        },
+                      ));
+                    } else {
+                      print("Form is not validate");
+                    }
+                  },
+                ),
+              ),
+            ],
           )
         ],
       ),

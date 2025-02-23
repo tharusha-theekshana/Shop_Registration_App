@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 
 class ShopRegisterProvider extends ChangeNotifier {
   String ownerName = '';
-  String email = '';
-  String mobile = '';
-  String nic = '';
+  String ownerEmail = '';
+  String ownerMobile = '';
+  String ownerNic = '';
 
   String shopName = "";
-  String address = "";
+  String shopAddress = "";
   String shopCategory = "";
-  String openTime = "";
-  String closeTime = "";
+  String shopOpenTime = "";
+  String shopCloseTime = "";
 
-  String bank = "";
+  String accountBank = "";
   String accountNumber = "";
-  String branch = "";
+  String accountBranch = "";
   String accountHolderName = "";
 
   // Set owner details
@@ -24,19 +24,19 @@ class ShopRegisterProvider extends ChangeNotifier {
       required String mobile,
       required String nic}) {
     ownerName = name;
-    email = email;
-    mobile = mobile;
-    nic = nic;
+    ownerEmail = email;
+    ownerMobile = mobile;
+    ownerNic = nic;
 
     notifyListeners();
   }
 
   // Set shop details
-  void saveShopDetails({required String shopName,required String address,required String openTime,required String closeTime}){
-    shopName = shopName;
-    address = address;
-    openTime = openTime;
-    closeTime = closeTime;
+  void saveShopDetails({required String name,required String address,required String openTime,required String closeTime}){
+    shopName = name;
+    shopAddress = address;
+   shopOpenTime = openTime;
+    shopCloseTime = closeTime;
 
     notifyListeners();
   }
@@ -49,18 +49,18 @@ class ShopRegisterProvider extends ChangeNotifier {
 
   // Set bank name
   void setBankName(String bankName){
-    bank = bankName;
+    accountBank = bankName;
     notifyListeners();
   }
 
   // Set bank details
   void saveBankDetails(
-      {required String accountNumber,
+      {required String accNumber,
         required String branch,
-        required String accountHolderName}) {
-    accountNumber = accountNumber;
-    branch = branch;
-    accountHolderName = accountHolderName;
+        required String accountName}) {
+    accountNumber = accNumber;
+    accountBranch = branch;
+    accountHolderName = accountName;
 
     notifyListeners();
   }

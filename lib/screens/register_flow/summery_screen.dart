@@ -81,9 +81,9 @@ class _SummeryScreenState extends State<SummeryScreen> {
       children: [
         _summeryTitle("Owner Details"),
         rowText(key: "Owner Name", value: shopProvider.ownerName),
-        rowText(key: "Email", value: shopProvider.email),
-        rowText(key: "Mobile Number", value: shopProvider.mobile),
-        rowText(key: "NIC", value: shopProvider.nic)
+        rowText(key: "Email", value: shopProvider.ownerEmail),
+        rowText(key: "Mobile Number", value: shopProvider.ownerMobile),
+        rowText(key: "NIC", value: shopProvider.ownerNic)
       ],
     );
   }
@@ -94,10 +94,10 @@ class _SummeryScreenState extends State<SummeryScreen> {
         _brView(),
         _summeryTitle("Shop Details"),
         rowText(key: "Shop Name", value: shopProvider.shopName),
-        rowText(key: "Address", value: shopProvider.address),
+        rowText(key: "Address", value: shopProvider.shopAddress),
         rowText(key: "Shop Category", value: shopProvider.shopCategory),
-        rowText(key: "Open Time", value: shopProvider.openTime),
-        rowText(key: "Close Time", value: shopProvider.closeTime),
+        rowText(key: "Open Time", value: shopProvider.shopOpenTime),
+        rowText(key: "Close Time", value: shopProvider.shopCloseTime),
       ],
     );
   }
@@ -106,9 +106,9 @@ class _SummeryScreenState extends State<SummeryScreen> {
     return Column(
       children: [
         _summeryTitle("Bank Details"),
-        rowText(key: "Bank Name", value: shopProvider.bank),
+        rowText(key: "Bank Name", value: shopProvider.accountBank),
         rowText(key: "Account Number", value: shopProvider.accountNumber),
-        rowText(key: "Branch", value: shopProvider.branch),
+        rowText(key: "Branch", value: shopProvider.accountBranch),
         rowText(
             key: "Account Holder Name", value: shopProvider.accountHolderName)
       ],
