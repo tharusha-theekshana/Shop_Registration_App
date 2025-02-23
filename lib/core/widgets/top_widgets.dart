@@ -14,6 +14,9 @@ class TopWidgets extends StatelessWidget {
       width: _deviceWidth,
       child: Column(
         children: [
+          SizedBox(
+            height: _deviceHeight * 0.01,
+          ),
           Text(
             "MyShop",
             textAlign: TextAlign.center,
