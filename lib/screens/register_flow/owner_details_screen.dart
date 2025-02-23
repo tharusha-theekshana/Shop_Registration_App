@@ -163,11 +163,6 @@ class OwnerDetailsScreen extends StatelessWidget {
                 ));
               } else {
                 print("Form is not validate");
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return ShopDetailsScreen();
-                  },
-                ));
               }
             },
           )

@@ -9,7 +9,7 @@ class DropDownField extends StatefulWidget {
   final bool isRequired;
   final Function(String) setValue;
 
-  DropDownField(
+  const DropDownField(
       {required this.labelText,
       required this.items,
       required this.isRequired,

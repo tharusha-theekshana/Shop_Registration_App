@@ -15,7 +15,7 @@ class CustomButton extends StatelessWidget {
   final Color? borderColor;
   final Gradient? gradient;
 
-  CustomButton(
+  const CustomButton(
       {required this.buttonText,
         required this.height,
         this.width,

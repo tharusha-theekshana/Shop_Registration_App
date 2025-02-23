@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:shop_registration/core/utils/app_colors.dart';
 import 'package:shop_registration/core/widgets/custom_button.dart';
 import 'package:shop_registration/providers/image_provider.dart';
+import 'package:shop_registration/screens/register_flow/final_screen.dart';
 import 'package:shop_registration/screens/register_flow/owner_details_screen.dart';
 
 import '../../core/widgets/stepper_view.dart';
@@ -206,8 +207,11 @@ class _SummeryScreenState extends State<SummeryScreen> {
             ),
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop(); // Close dialog
-                // Proceed with registration logic
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => FinalScreen()),
+                      (route) => false, // This removes all previous routes
+                );
               },
               child: const Text(
                 "Yes",

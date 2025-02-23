@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_registration/screens/register_flow/summery_screen.dart';
 import 'package:shop_registration/shared/bank_names.dart';
 
 import '../../core/utils/app_colors.dart';
@@ -145,9 +144,6 @@ class BankDetailsScreen extends StatelessWidget {
                     accountHolderName: _accountHolderNameController.text);
               } else {
                 print("Form is not validate");
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return SummeryScreen();
-                },));
               }
             },
           )

@@ -39,6 +39,7 @@ class ImagePickerProvider extends ChangeNotifier{
     }
   }
 
+  // Save image on local
   Future<void> saveImageLocally(File image,String shopName) async {
     final appDir = await path.getApplicationDocumentsDirectory();
 
@@ -47,9 +48,9 @@ class ImagePickerProvider extends ChangeNotifier{
 
     uploadedFileName = "$shopName - BR.$imageType";
     notifyListeners();
-    print('Image saved locally: ${localImage}');
   }
 
+  // Check image size
   bool checkImageSize(File imageFile) {
     int bytes = imageFile.lengthSync();
     double kb = bytes / 1024;
@@ -61,6 +62,7 @@ class ImagePickerProvider extends ChangeNotifier{
     }
   }
 
+  // Check image type ( Allowed only .png .jpg and .jpeg )
   bool checkImageType(File imageFile) {
     imageType = imageFile.path.split('.').last.toLowerCase();
     print('Image type: $imageType');
@@ -72,6 +74,5 @@ class ImagePickerProvider extends ChangeNotifier{
       return false;
     }
   }
-
 
 }

@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           fontFamily: "Quicksand",
           colorScheme: const ColorScheme.dark()),
       themeMode: ThemeMode.system,
-      home: OwnerDetailsScreen(),
+      home: OwnerDetailsScreen()
     );
   }
 }
