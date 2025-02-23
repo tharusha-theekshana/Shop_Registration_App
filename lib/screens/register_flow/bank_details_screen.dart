@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_registration/providers/image_provider.dart';
-import 'package:shop_registration/screens/register_flow/bank_details_screen.dart';
+import 'package:shop_registration/screens/register_flow/summery_screen.dart';
+import 'package:shop_registration/shared/bank_names.dart';
 
 import '../../core/utils/app_colors.dart';
 import '../../core/utils/app_styles.dart';
@@ -11,18 +10,15 @@ import '../../core/widgets/drop_down_field.dart';
 import '../../core/widgets/form_field.dart';
 import '../../core/widgets/sub_title_widget.dart';
 import '../../providers/shop_register_provider.dart';
-import '../../shared/shop_categories.dart';
 
-class ShopDetailsScreen extends StatelessWidget {
-  final TextEditingController _shopNameController = TextEditingController();
-  final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _openTimeController = TextEditingController();
-  final TextEditingController _closeTimeController = TextEditingController();
-
+class BankDetailsScreen extends StatelessWidget {
   late double _deviceHeight, _deviceWidth;
 
-  final _shopDetailsFormKey = GlobalKey<FormState>();
+  final TextEditingController _accountNumberController = TextEditingController();
+  final TextEditingController _branchController = TextEditingController();
+  final TextEditingController _accountHolderNameController= TextEditingController();
 
+  final _bankDetailsFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +51,7 @@ class ShopDetailsScreen extends StatelessWidget {
     );
   }
 
+
   Widget _registerTitleText() {
     return SizedBox(
       width: _deviceWidth,
@@ -76,69 +73,71 @@ class ShopDetailsScreen extends StatelessWidget {
     );
   }
 
+
   Widget _inputArea(BuildContext context){
     final provider = Provider.of<ShopRegisterProvider>(context);
-    final imageProvider = Provider.of<ImagePickerProvider>(context);
 
     return Form(
-      key: _shopDetailsFormKey,
+      key: _bankDetailsFormKey,
       child: Column(
         children: [
-          SubTitleWidget(text: "Shop Details"),
+          SubTitleWidget(text: "Bank Details"),
           SizedBox(
             height: _deviceHeight * 0.025,
           ),
-          AppFormField(
-              labelText: "Shop Name",
-              hintText: "",
-              controller: _shopNameController,
-              textInputType: TextInputType.name,
-              isRequired: true,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Shop name is required";
-                }
-                return null;
-              },
-              deviceHeight: _deviceHeight),
-          SizedBox(
-            height: _deviceHeight * 0.012,
-          ),
-          AppFormField(
-              labelText: "Address",
-              hintText: "",
-              controller: _addressController,
-              textInputType: TextInputType.text,
-              isRequired: true,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return "Address is required";
-                }
-                return null;
-              },
-              deviceHeight: _deviceHeight),
-          SizedBox(
-            height: _deviceHeight * 0.012,
-          ),
           DropDownField(
-            labelText: "Shop Category",
-            items: ShopCategories.shopCategories,
+            labelText: "Bank",
+            items: BankNames.bankNames,
             isRequired: true,
             deviceHeight: _deviceHeight,
           ),
-          timePicker(
-              labelText: "Open Time",
-              controller: _openTimeController,
+          AppFormField(
+              labelText: "Account Number",
+              hintText: "",
+              controller: _accountNumberController,
               isRequired: true,
-              context: context),
-          timePicker(
-              labelText: "Close Time",
-              controller: _closeTimeController,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Account number is required.";
+                }else if(value.length <= 10){
+                  return "Account number length is invalid.";
+                }
+                return null;
+              },
+              deviceHeight: _deviceHeight),
+          SizedBox(
+            height: _deviceHeight * 0.012,
+          ),
+          AppFormField(
+              labelText: "Branch",
+              hintText: "",
+              controller: _branchController,
               isRequired: true,
-              context: context),
-          ElevatedButton(
-            onPressed: () => imageProvider.setImage(ImageSource.camera,_shopNameController.text),
-            child: Text("Pick Image"),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Branch is required";
+                }
+                return null;
+              },
+              deviceHeight: _deviceHeight),
+          SizedBox(
+            height: _deviceHeight * 0.012,
+          ),
+          AppFormField(
+              labelText: "Account Holder Name",
+              hintText: "",
+              controller: _accountNumberController,
+              isRequired: true,
+              maxLength: 10,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return "Account holder name is required";
+                }
+                return null;
+              },
+              deviceHeight: _deviceHeight),
+          SizedBox(
+            height: _deviceHeight * 0.012,
           ),
           CustomButton(
             buttonText: "Next",
@@ -148,15 +147,11 @@ class ShopDetailsScreen extends StatelessWidget {
             borderRadius: 25,
             fontSize: _deviceHeight * 0.02,
             onPressed: () {
-              if (_shopDetailsFormKey.currentState!.validate()) {
-                provider.nextStep();
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return BankDetailsScreen();
-                },));
+              if (_bankDetailsFormKey.currentState!.validate()) {
               } else {
                 print("Form is not validate");
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return BankDetailsScreen();
+                  return SummeryScreen();
                 },));
               }
             },
@@ -164,39 +159,5 @@ class ShopDetailsScreen extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Widget timePicker(
-      {required String labelText,
-        required TextEditingController controller,
-        required bool isRequired,
-        required BuildContext context}) {
-    return AppFormField(
-      labelText: labelText,
-      hintText: "",
-      controller: controller,
-      validator: (p0) {},
-      deviceHeight: _deviceHeight,
-      isRequired: isRequired,
-      suffixIcon: IconButton(
-          onPressed: () => selectTime(context,controller),
-          icon: Icon(Icons.access_time_outlined)),
-    );
-  }
-
-  Future<void> selectTime(BuildContext context, TextEditingController controller) async {
-    TimeOfDay _time = TimeOfDay.now();
-    TimeOfDay? pickedTime = await showTimePicker(
-      context: context,
-      initialTime: _time,
-    );
-
-    if (pickedTime != null) {
-      // Format the selected time as HH:mm:ss
-      final formattedTime = '${pickedTime.hour.toString().padLeft(2, '0')}:'
-          '${pickedTime.minute.toString().padLeft(2, '0')}:00';
-
-      controller.text = formattedTime;
-    }
   }
 }
