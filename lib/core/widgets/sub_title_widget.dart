@@ -12,20 +12,13 @@ class SubTitleWidget extends StatelessWidget {
     _deviceHeight = MediaQuery.of(context).size.height;
     _deviceWidth = MediaQuery.of(context).size.width;
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        double screenWidth = constraints.maxWidth;
-        String dashes = '-' * (screenWidth ~/ 35); // Adjust the divisor for length
-
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("$dashes $text $dashes",
-              style: AppStyles.subTextStyle(_deviceHeight),
-            ),
-          ],
-        );
-      },
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: _deviceHeight * 0.012),
+      width: _deviceWidth,
+      child: Text("-------- $text --------",
+        textAlign: TextAlign.center,
+        style: AppStyles.subTextStyle(_deviceHeight),
+      ),
     );
   }
 }

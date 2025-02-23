@@ -4,7 +4,7 @@ import 'package:shop_registration/core/utils/app_colors.dart';
 class AppStyles {
   static TextStyle titleTextStyle(double deviceHeight) {
     return TextStyle(
-        fontSize: deviceHeight * 0.045,
+        fontSize: deviceHeight * 0.06,
         fontWeight: FontWeight.bold,
         color: AppColors.greenColor);
   }

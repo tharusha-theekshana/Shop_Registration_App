@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_registration/core/widgets/stepper_view.dart';
+import 'package:shop_registration/core/widgets/top_widgets.dart';
 import 'package:shop_registration/screens/register_flow/shop_details_screen.dart';
 
 import '../../core/utils/app_colors.dart';
@@ -47,32 +49,10 @@ class OwnerDetailsScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _registerTitleText(),
-          SizedBox(
-            height: _deviceHeight * 0.05,
-          ),
+          TopWidgets(),
+          SubTitleWidget(text: "Owner Details"),
+          StepperView(step: 1, allSteps: 3),
           _inputArea(context)
-        ],
-      ),
-    );
-  }
-
-  Widget _registerTitleText() {
-    return SizedBox(
-      width: _deviceWidth,
-      child: Column(
-        children: [
-          Text(
-            "Register Your Own \nShop",
-            textAlign: TextAlign.center,
-            style: AppStyles.titleTextStyle(_deviceHeight),
-          ),
-          SizedBox(
-            height: _deviceHeight * 0.015,
-          ),
-          const Text(
-              "Set up your own shop effortlessly! Register your store and start selling in just a few taps.",
-              textAlign: TextAlign.center),
         ],
       ),
     );
@@ -85,15 +65,15 @@ class OwnerDetailsScreen extends StatelessWidget {
       key: _ownerDetailsFormKey,
       child: Column(
         children: [
-          SubTitleWidget(text: "Owner Details"),
           SizedBox(
             height: _deviceHeight * 0.025,
           ),
           AppFormField(
               labelText: "Name",
-              hintText: "Jhon snovy",
+              hintText: "ex : Jhon snovy",
               controller: _nameController,
               isRequired: true,
+              textInputType: TextInputType.name,
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Name is required";
@@ -104,12 +84,13 @@ class OwnerDetailsScreen extends StatelessWidget {
               },
               deviceHeight: _deviceHeight),
           SizedBox(
-            height: _deviceHeight * 0.012,
+            height: _deviceHeight * 0.015,
           ),
           AppFormField(
               labelText: "Email",
-              hintText: "example@gmail.com",
+              hintText: "ex : example@gmail.com",
               controller: _emailController,
+              textInputType: TextInputType.emailAddress,
               isRequired: true,
               validator: (value) {
                 if (value!.isEmpty) {
@@ -121,12 +102,13 @@ class OwnerDetailsScreen extends StatelessWidget {
               },
               deviceHeight: _deviceHeight),
           SizedBox(
-            height: _deviceHeight * 0.012,
+            height: _deviceHeight * 0.015,
           ),
           AppFormField(
               labelText: "Mobile",
-              hintText: "011 xxxxxxx",
+              hintText: "ex : 011 xxxxxxx",
               controller: _mobileController,
+              textInputType: TextInputType.number,
               isRequired: true,
               maxLength: 10,
               validator: (value) {
@@ -139,11 +121,11 @@ class OwnerDetailsScreen extends StatelessWidget {
               },
               deviceHeight: _deviceHeight),
           SizedBox(
-            height: _deviceHeight * 0.012,
+            height: _deviceHeight * 0.015,
           ),
           AppFormField(
               labelText: "NIC",
-              hintText: "895556237V",
+              hintText: "ex : 895556237V",
               controller: _nicController,
               isRequired: true,
               maxLength: 12,
@@ -168,12 +150,13 @@ class OwnerDetailsScreen extends StatelessWidget {
             borderRadius: 25,
             fontSize: _deviceHeight * 0.02,
             onPressed: () {
-              if (true) {
+              if (_ownerDetailsFormKey.currentState!.validate()) {
                 provider.saveOwnerDetails(
                     name: _nameController.text,
                     email: _emailController.text,
                     mobile: _mobileController.text,
                     nic: _nicController.text);
+
                 Navigator.push(context, MaterialPageRoute(
                   builder: (context) {
                     return ShopDetailsScreen();
@@ -181,11 +164,6 @@ class OwnerDetailsScreen extends StatelessWidget {
                 ));
               } else {
                 print("Form is not validate");
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) {
-                    return ShopDetailsScreen();
-                  },
-                ));
               }
             },
           )
