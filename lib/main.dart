@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_registration/providers/image_provider.dart';
 import 'package:shop_registration/providers/shop_register_provider.dart';
-import 'package:shop_registration/screens/register_flow/owner_details_screen.dart';
+import 'package:shop_registration/screens/splash_screen.dart';
 
 void main() {
   runApp(
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           fontFamily: "Quicksand",
           colorScheme: const ColorScheme.dark()),
       themeMode: ThemeMode.system,
-      home: OwnerDetailsScreen()
+      home: SplashScreen()
     );
   }
 }
