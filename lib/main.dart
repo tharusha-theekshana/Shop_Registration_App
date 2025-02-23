@@ -24,8 +24,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Shop Registration',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(useMaterial3: true),
-      darkTheme: ThemeData.dark(useMaterial3: true),
+      theme: ThemeData(
+          useMaterial3: true,
+          fontFamily: "Quicksand",
+          splashFactory: NoSplash.splashFactory,
+          colorScheme: const ColorScheme.light()),
+      darkTheme: ThemeData(
+          useMaterial3: true,
+          fontFamily: "Quicksand",
+          colorScheme: const ColorScheme.dark()),
       themeMode: ThemeMode.system,
       home: OwnerDetailsScreen(),
     );
