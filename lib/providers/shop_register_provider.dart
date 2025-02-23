@@ -1,24 +1,21 @@
 import 'package:flutter/material.dart';
 
 class ShopRegisterProvider extends ChangeNotifier {
-  int _currentStep = 1;
-
-  int get currentStep => _currentStep;
-
-  void nextStep() {
-    _currentStep++;
-    notifyListeners();
-  }
-
-  void previousStep() {
-    _currentStep--;
-    notifyListeners();
-  }
-
   String ownerName = '';
   String email = '';
   String mobile = '';
   String nic = '';
+
+  String shopName = "";
+  String address = "";
+  String shopCategory = "";
+  String openTime = "";
+  String closeTime = "";
+
+  String bank = "";
+  String accountNumber = "";
+  String branch = "";
+  String accountHolderName = "";
 
   void saveOwnerDetails(
       {required String name,
@@ -29,5 +26,22 @@ class ShopRegisterProvider extends ChangeNotifier {
     email = email;
     mobile = mobile;
     nic = nic;
+  }
+
+  void setShopCategory(String category){
+    shopCategory = category;
+  }
+
+  void setBankName(String bankName){
+    bank = bankName;
+  }
+
+  void saveBankDetails(
+      {required String accountNumber,
+        required String branch,
+        required String accountHolderName}) {
+    accountNumber = accountNumber;
+    branch = branch;
+    accountHolderName = accountHolderName;
   }
 }

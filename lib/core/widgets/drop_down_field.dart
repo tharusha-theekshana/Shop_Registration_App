@@ -2,19 +2,27 @@ import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
 
-class DropDownField extends StatelessWidget {
-  String? selectedValue;
-
+class DropDownField extends StatefulWidget {
   final String labelText;
   final List<String> items;
   final double deviceHeight;
   final bool isRequired;
+  final Function(String) setValue;
 
   DropDownField(
       {required this.labelText,
       required this.items,
       required this.isRequired,
-      required this.deviceHeight});
+      required this.deviceHeight,
+      required this.setValue
+      });
+
+  @override
+  State<DropDownField> createState() => _DropDownFieldState();
+}
+
+class _DropDownFieldState extends State<DropDownField> {
+  String? selectedValue;
 
   @override
   Widget build(BuildContext context) {
@@ -23,16 +31,16 @@ class DropDownField extends StatelessWidget {
       children: [
         RichText(
           text: TextSpan(
-              text: labelText,
+              text: widget.labelText,
               style: TextStyle(
-                  fontSize: deviceHeight * 0.018,
+                  fontSize: widget.deviceHeight * 0.018,
                   fontWeight: FontWeight.w500,
                   color: Theme.of(context).dividerColor),
               children: [
                 TextSpan(
-                  text: isRequired ? " *" : "",
+                  text: widget.isRequired ? " *" : "",
                   style: TextStyle(
-                    fontSize: deviceHeight * 0.02,
+                    fontSize: widget.deviceHeight * 0.02,
                     fontWeight: FontWeight.w500,
                     color: AppColors.redColor, // Ensure color is set
                   ),
@@ -43,7 +51,7 @@ class DropDownField extends StatelessWidget {
           height: 5,
         ),
         DropdownButtonFormField<String>(
-          value: items.first,
+          value: widget.items.first,
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(25.0),
@@ -57,17 +65,20 @@ class DropDownField extends StatelessWidget {
             ),
             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           ),
-          items: items.map((String item) {
+          items: widget.items.map((String item) {
             return DropdownMenuItem<String>(
               value: item,
               child: Text(item,
                   style: TextStyle(
-                      fontSize: deviceHeight * 0.018,
+                      fontSize: widget.deviceHeight * 0.018,
                       fontWeight: FontWeight.w400)),
             );
           }).toList(),
           onChanged: (String? newValue) {
-            selectedValue = newValue;
+            setState(() {
+              selectedValue = newValue;
+            });
+            widget.setValue(newValue ?? widget.items.first); // Call the passed function
           },
         )
       ],

@@ -26,8 +26,6 @@ class OwnerDetailsScreen extends StatelessWidget {
 
   final _ownerDetailsFormKey = GlobalKey<FormState>();
 
-
-
   @override
   Widget build(BuildContext context) {
     _deviceHeight = MediaQuery.of(context).size.height;
@@ -80,7 +78,7 @@ class OwnerDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget _inputArea(BuildContext context){
+  Widget _inputArea(BuildContext context) {
     final provider = Provider.of<ShopRegisterProvider>(context);
 
     return Form(
@@ -96,7 +94,6 @@ class OwnerDetailsScreen extends StatelessWidget {
               hintText: "Jhon snovy",
               controller: _nameController,
               isRequired: true,
-
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Name is required";
@@ -114,7 +111,6 @@ class OwnerDetailsScreen extends StatelessWidget {
               hintText: "example@gmail.com",
               controller: _emailController,
               isRequired: true,
-
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Email is required";
@@ -131,8 +127,6 @@ class OwnerDetailsScreen extends StatelessWidget {
               labelText: "Mobile",
               hintText: "011 xxxxxxx",
               controller: _mobileController,
-
-
               isRequired: true,
               maxLength: 10,
               validator: (value) {
@@ -174,19 +168,24 @@ class OwnerDetailsScreen extends StatelessWidget {
             borderRadius: 25,
             fontSize: _deviceHeight * 0.02,
             onPressed: () {
-              if (_ownerDetailsFormKey.currentState!.validate()) {
-                provider.saveOwnerDetails(name: _nameController.text,
+              if (true) {
+                provider.saveOwnerDetails(
+                    name: _nameController.text,
                     email: _emailController.text,
                     mobile: _mobileController.text,
                     nic: _nicController.text);
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return OwnerDetailsScreen();
-                },));
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return ShopDetailsScreen();
+                  },
+                ));
               } else {
                 print("Form is not validate");
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return ShopDetailsScreen();
-                },));
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) {
+                    return ShopDetailsScreen();
+                  },
+                ));
               }
             },
           )

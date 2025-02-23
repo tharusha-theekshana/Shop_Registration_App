@@ -125,6 +125,9 @@ class ShopDetailsScreen extends StatelessWidget {
             items: ShopCategories.shopCategories,
             isRequired: true,
             deviceHeight: _deviceHeight,
+            setValue: (value) {
+              provider.setShopCategory(value);
+            },
           ),
           timePicker(
               labelText: "Open Time",
@@ -149,7 +152,6 @@ class ShopDetailsScreen extends StatelessWidget {
             fontSize: _deviceHeight * 0.02,
             onPressed: () {
               if (_shopDetailsFormKey.currentState!.validate()) {
-                provider.nextStep();
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return BankDetailsScreen();
                 },));

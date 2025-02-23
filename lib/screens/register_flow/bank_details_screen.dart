@@ -16,14 +16,20 @@ class BankDetailsScreen extends StatelessWidget {
 
   final TextEditingController _accountNumberController = TextEditingController();
   final TextEditingController _branchController = TextEditingController();
-  final TextEditingController _accountHolderNameController= TextEditingController();
+  final TextEditingController _accountHolderNameController = TextEditingController();
 
   final _bankDetailsFormKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    _deviceHeight = MediaQuery.of(context).size.height;
-    _deviceWidth = MediaQuery.of(context).size.width;
+    _deviceHeight = MediaQuery
+        .of(context)
+        .size
+        .height;
+    _deviceWidth = MediaQuery
+        .of(context)
+        .size
+        .width;
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -74,7 +80,7 @@ class BankDetailsScreen extends StatelessWidget {
   }
 
 
-  Widget _inputArea(BuildContext context){
+  Widget _inputArea(BuildContext context) {
     final provider = Provider.of<ShopRegisterProvider>(context);
 
     return Form(
@@ -90,6 +96,9 @@ class BankDetailsScreen extends StatelessWidget {
             items: BankNames.bankNames,
             isRequired: true,
             deviceHeight: _deviceHeight,
+            setValue: (value) {
+              provider.setBankName(value);
+            },
           ),
           AppFormField(
               labelText: "Account Number",
@@ -99,7 +108,7 @@ class BankDetailsScreen extends StatelessWidget {
               validator: (value) {
                 if (value!.isEmpty) {
                   return "Account number is required.";
-                }else if(value.length <= 10){
+                } else if (value.length <= 10) {
                   return "Account number length is invalid.";
                 }
                 return null;
@@ -148,6 +157,10 @@ class BankDetailsScreen extends StatelessWidget {
             fontSize: _deviceHeight * 0.02,
             onPressed: () {
               if (_bankDetailsFormKey.currentState!.validate()) {
+                provider.saveBankDetails(
+                    accountNumber: _accountNumberController.text,
+                    branch: _branchController.text,
+                    accountHolderName: _accountHolderNameController.text);
               } else {
                 print("Form is not validate");
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
